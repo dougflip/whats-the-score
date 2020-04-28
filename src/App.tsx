@@ -1,8 +1,16 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+
+import { Player } from "./Players/types";
+import { Players } from "./Players/Players";
+
+import logo from "./logo.svg";
+import "./App.css";
 
 function App() {
+  const [users, setUsers] = useState<Player[]>([]);
+  const handleAddPlayer = (name: string) => {
+    setUsers([...users, { name }]);
+  };
   return (
     <div className="App">
       <header className="App-header">
@@ -18,6 +26,7 @@ function App() {
         >
           Learn React
         </a>
+        <Players players={users} onAddPlayer={handleAddPlayer} />
       </header>
     </div>
   );
