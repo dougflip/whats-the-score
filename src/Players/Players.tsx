@@ -1,19 +1,33 @@
 import React, { FC, FormEvent, useState } from "react";
+import { Roster } from "../types";
 
-import { Player } from "./types";
+import "./Players.css";
+
+type PlayerAction = (name: string) => void;
 
 interface PlayersProps {
-  players: Player[];
-  onAddPlayer: (name: string) => void;
+  players: Roster;
+  onAddPlayer: PlayerAction;
+  onRemovePlayer: PlayerAction;
 }
 
-const PlayerRow: FC<Player> = (props) => {
-  const { name } = props;
-  return <div>{name}</div>;
+interface PlayerProps {
+  name: string;
+  onRemovePlayer: PlayerAction;
+}
+
+const PlayerRow: FC<PlayerProps> = (props) => {
+  const { name, onRemovePlayer } = props;
+  return (
+    <div className="players-player-row">
+      <span>{name}</span>
+      <button onClick={() => onRemovePlayer(name)}>delete</button>
+    </div>
+  );
 };
 
 export const Players: FC<PlayersProps> = (props) => {
-  const { players, onAddPlayer } = props;
+  const { players, onAddPlayer, onRemovePlayer } = props;
   const [newName, setNewName] = useState("");
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -28,13 +42,14 @@ export const Players: FC<PlayersProps> = (props) => {
     <div className="players">
       <form onSubmit={handleSubmit}>
         <input
+          className="players-add-input"
           value={newName}
           placeholder="Enter a name..."
           onChange={(e) => setNewName(e.target.value)}
         />
       </form>
       {players.map((p) => (
-        <PlayerRow key={p.name} {...p} />
+        <PlayerRow key={p.name} onRemovePlayer={onRemovePlayer} {...p} />
       ))}
     </div>
   );

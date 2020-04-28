@@ -1,0 +1,13 @@
+.players-add-input {
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.players-player-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #eee;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+}
