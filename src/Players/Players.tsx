@@ -40,7 +40,7 @@ export const Players: FC<PlayersProps> = (props) => {
   };
   return (
     <div className="players">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} data-testid="playersAddPlayer">
         <input
           className="players-add-input"
           value={newName}
@@ -48,9 +48,11 @@ export const Players: FC<PlayersProps> = (props) => {
           onChange={(e) => setNewName(e.target.value)}
         />
       </form>
-      {players.map((p) => (
-        <PlayerRow key={p.name} onRemovePlayer={onRemovePlayer} {...p} />
-      ))}
+      <div className="players-roster">
+        {players.map((p) => (
+          <PlayerRow key={p.name} onRemovePlayer={onRemovePlayer} {...p} />
+        ))}
+      </div>
     </div>
   );
 };
