@@ -2,7 +2,8 @@ import React from "react";
 import { RecoilRoot } from "recoil";
 import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import App from "./App";
+
+import App from "./app";
 
 function addPlayer(name: string): void {
   userEvent.type(screen.getByRole("textbox"), name);

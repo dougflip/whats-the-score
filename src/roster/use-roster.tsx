@@ -1,6 +1,6 @@
 import { atom, useRecoilState } from "recoil";
 
-import { Roster } from "./types";
+import { Roster } from "../types";
 
 const rosterState = atom<Roster>({ key: "roster-state", default: [] });
 

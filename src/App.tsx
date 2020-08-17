@@ -1,12 +1,12 @@
 import React from "react";
 
-import "./App.css";
-import { AddPlayers } from "./Players/AddPlayers";
+import "./app.css";
+import { RosterPage } from "./roster/roster-page";
 
 function App() {
   return (
     <div className="app">
-      <AddPlayers />
+      <RosterPage />
     </div>
   );
 }

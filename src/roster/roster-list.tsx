@@ -1,22 +1,22 @@
 import React, { FC, FormEvent, useState } from "react";
 import { Roster } from "../types";
 
-import "./Players.css";
+import "./roster-list.css";
 
-type PlayerAction = (name: string) => void;
+type RosterListAction = (name: string) => void;
 
-interface PlayersProps {
+interface RosterListProps {
   players: Roster;
-  onAddPlayer: PlayerAction;
-  onRemovePlayer: PlayerAction;
+  onAddPlayer: RosterListAction;
+  onRemovePlayer: RosterListAction;
 }
 
-interface PlayerProps {
+interface PlayerRowProps {
   name: string;
-  onRemovePlayer: PlayerAction;
+  onRemovePlayer: RosterListAction;
 }
 
-const PlayerRow: FC<PlayerProps> = (props) => {
+const PlayerRow: FC<PlayerRowProps> = (props) => {
   const { name, onRemovePlayer } = props;
   return (
     <div className="players-player-row">
@@ -26,7 +26,7 @@ const PlayerRow: FC<PlayerProps> = (props) => {
   );
 };
 
-export const Players: FC<PlayersProps> = (props) => {
+export const RosterList: FC<RosterListProps> = (props) => {
   const { players, onAddPlayer, onRemovePlayer } = props;
   const [newName, setNewName] = useState("");
   const handleSubmit = (e: FormEvent) => {
@@ -39,16 +39,16 @@ export const Players: FC<PlayersProps> = (props) => {
     setNewName("");
   };
   return (
-    <div className="players">
+    <div className="roster-list">
       <form onSubmit={handleSubmit} data-testid="playersAddPlayer">
         <input
-          className="players-add-input"
+          className="roster-list-add-input"
           value={newName}
           placeholder="Enter a name..."
           onChange={(e) => setNewName(e.target.value)}
         />
       </form>
-      <div className="players-roster">
+      <div className="roster-list-players">
         {players.map((p) => (
           <PlayerRow key={p.name} onRemovePlayer={onRemovePlayer} {...p} />
         ))}
