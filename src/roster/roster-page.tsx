@@ -3,7 +3,11 @@ import React, { FC } from "react";
 import { useRoster } from "./use-roster";
 import { RosterList } from "./roster-list";
 
-export const RosterPage: FC = () => {
+export interface RosterPageProps {
+  onSubmitRoster: () => void;
+}
+
+export const RosterPage: FC<RosterPageProps> = ({ onSubmitRoster }) => {
   const { roster, addPlayer, removePlayer } = useRoster();
   return (
     <>
@@ -13,6 +17,7 @@ export const RosterPage: FC = () => {
         onAddPlayer={addPlayer}
         onRemovePlayer={removePlayer}
       />
+      <button onClick={onSubmitRoster}>Let's play!</button>
     </>
   );
 };
