@@ -1,5 +1,8 @@
-import { useState } from "react";
+import { atom, useRecoilState } from "recoil";
+
 import { Roster } from "./types";
+
+const rosterState = atom<Roster>({ key: "roster-state", default: [] });
 
 export interface UseRosterResult {
   roster: Roster;
@@ -8,7 +11,7 @@ export interface UseRosterResult {
 }
 
 export function useRoster(): UseRosterResult {
-  const [roster, setRoster] = useState<Roster>([]);
+  const [roster, setRoster] = useRecoilState(rosterState);
   const addPlayer = (name: string) => {
     setRoster([...roster, { name }]);
   };

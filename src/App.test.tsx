@@ -1,4 +1,5 @@
 import React from "react";
+import { RecoilRoot } from "recoil";
 import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import App from "./App";
@@ -13,7 +14,11 @@ const deletePlayerAtIndex = (index: number): void =>
 
 describe("App", () => {
   it("adds and removes players from the roster", () => {
-    render(<App />);
+    render(
+      <RecoilRoot>
+        <App />
+      </RecoilRoot>
+    );
 
     addPlayer("Doug");
     addPlayer("Dave");
