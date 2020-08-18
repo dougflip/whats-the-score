@@ -1,9 +1,9 @@
 import React, { FC } from "react";
 
-import { useRoster } from "../roster/use-roster";
+import { useGame } from "../lib/use-game";
 
 export const ScoreKeeperPage: FC = () => {
-  const { currentPlayer, playCurrentTurn } = useRoster();
+  const { currentPlayer, playCurrentTurn } = useGame();
 
   const handlePlayerClick = () => {
     playCurrentTurn(Math.round(Math.random() * 100));
@@ -15,8 +15,8 @@ export const ScoreKeeperPage: FC = () => {
         {currentPlayer.name} <button onClick={handlePlayerClick}>next</button>
       </div>
       <div>
-        {currentPlayer.scores.map((x) => (
-          <div>{x}</div>
+        {currentPlayer.scores.map((x, i) => (
+          <div key={i}>{x}</div>
         ))}
       </div>
     </section>

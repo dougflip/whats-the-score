@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 
-import { useRoster } from "./use-roster";
+import { useGame } from "../lib/use-game";
 import { RosterList } from "./roster-list";
 
 export interface RosterPageProps {
@@ -8,7 +8,7 @@ export interface RosterPageProps {
 }
 
 export const RosterPage: FC<RosterPageProps> = ({ onSubmitRoster }) => {
-  const { roster, addPlayer, removePlayer } = useRoster();
+  const { roster, addPlayer, removePlayer } = useGame();
   return (
     <>
       <h1>Who's playing?</h1>
