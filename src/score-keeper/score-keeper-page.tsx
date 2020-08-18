@@ -1,24 +1,18 @@
 import React, { FC } from "react";
 
 import { useGame } from "../lib/use-game";
+import { PlayerCard } from "./player-card";
 
 export const ScoreKeeperPage: FC = () => {
   const { currentPlayer, playCurrentTurn } = useGame();
 
-  const handlePlayerClick = () => {
-    playCurrentTurn(Math.round(Math.random() * 100));
+  const handleSubmitScore = (score: number) => {
+    playCurrentTurn(score);
   };
 
   return (
     <section>
-      <div>
-        {currentPlayer.name} <button onClick={handlePlayerClick}>next</button>
-      </div>
-      <div>
-        {currentPlayer.scores.map((x, i) => (
-          <div key={i}>{x}</div>
-        ))}
-      </div>
+      <PlayerCard player={currentPlayer} onSubmitScore={handleSubmitScore} />
     </section>
   );
 };
