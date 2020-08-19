@@ -8,7 +8,7 @@ export interface RosterPageProps {
 }
 
 export const RosterPage: FC<RosterPageProps> = ({ onSubmitRoster }) => {
-  const { roster, addPlayer, removePlayer } = useGame();
+  const { roster, addPlayer, removePlayer, reorderPlayer } = useGame();
   return (
     <>
       <h1>Who's playing?</h1>
@@ -16,6 +16,7 @@ export const RosterPage: FC<RosterPageProps> = ({ onSubmitRoster }) => {
         players={roster}
         onAddPlayer={addPlayer}
         onRemovePlayer={removePlayer}
+        onReorderPlayer={reorderPlayer}
       />
       <button onClick={onSubmitRoster}>Let's play!</button>
     </>

@@ -11,7 +11,7 @@ function addPlayer(name: string): void {
 }
 
 const deletePlayerAtIndex = (index: number): void =>
-  userEvent.click(screen.getAllByRole("button", { name: /delete/i })[index]);
+  userEvent.click(screen.getAllByRole("button", { name: /^delete/i })[index]);
 
 describe("App", () => {
   it("adds and removes players from the roster", () => {

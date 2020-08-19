@@ -1,4 +1,11 @@
 import React, { FC, FormEvent, useState } from "react";
+import {
+  DragDropContext,
+  Droppable,
+  Draggable,
+  DropResult,
+} from "react-beautiful-dnd";
+
 import { Roster } from "../types";
 
 import "./roster-list.css";
@@ -9,6 +16,7 @@ interface RosterListProps {
   players: Roster;
   onAddPlayer: RosterListAction;
   onRemovePlayer: RosterListAction;
+  onReorderPlayer: (currentIndex: number, destinationIndex: number) => void;
 }
 
 interface PlayerRowProps {
@@ -27,7 +35,7 @@ const PlayerRow: FC<PlayerRowProps> = (props) => {
 };
 
 export const RosterList: FC<RosterListProps> = (props) => {
-  const { players, onAddPlayer, onRemovePlayer } = props;
+  const { players, onAddPlayer, onRemovePlayer, onReorderPlayer } = props;
   const [newName, setNewName] = useState("");
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -38,6 +46,13 @@ export const RosterList: FC<RosterListProps> = (props) => {
     onAddPlayer(newName);
     setNewName("");
   };
+
+  const handleDragEnd = (result: DropResult) => {
+    if (result.destination) {
+      onReorderPlayer(result.source.index, result.destination?.index);
+    }
+  };
+
   return (
     <div className="roster-list">
       <form onSubmit={handleSubmit} data-testid="playersAddPlayer">
@@ -49,9 +64,35 @@ export const RosterList: FC<RosterListProps> = (props) => {
         />
       </form>
       <div className="roster-list-players">
-        {players.map((p) => (
-          <PlayerRow key={p.name} onRemovePlayer={onRemovePlayer} {...p} />
-        ))}
+        <DragDropContext onDragEnd={handleDragEnd}>
+          <Droppable droppableId="droppable">
+            {(provided, snapshot) => (
+              <div {...provided.droppableProps} ref={provided.innerRef}>
+                {players.map((player, index) => (
+                  <Draggable
+                    key={player.name}
+                    draggableId={player.name}
+                    index={index}
+                  >
+                    {(provided, snapshot) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                      >
+                        <PlayerRow
+                          name={player.name}
+                          onRemovePlayer={onRemovePlayer}
+                        />
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 
 import { Player, Roster } from "../types";
-import { addPlayer, removePlayer, playTurn } from "./game-logic";
+import { addPlayer, removePlayer, playTurn, reorderPlayer } from "./game-logic";
 import {
   rosterState,
   currentPlayerIndexState,
@@ -13,6 +13,7 @@ export interface UseRosterResult {
   currentPlayer: Player;
   addPlayer: (name: string) => void;
   removePlayer: (name: string) => void;
+  reorderPlayer: (currentIndex: number, destinationIndex: number) => void;
   playCurrentTurn: (score: number) => void;
 }
 
@@ -36,6 +37,9 @@ export function useGame(): UseRosterResult {
     },
     removePlayer(name: string) {
       setRoster(removePlayer(name, roster));
+    },
+    reorderPlayer(currentIndex: number, destinationIndex: number) {
+      setRoster(reorderPlayer(currentIndex, destinationIndex, roster));
     },
     playCurrentTurn(score: number) {
       const [nextRoster, nextPlayerIndex] = playTurn(
