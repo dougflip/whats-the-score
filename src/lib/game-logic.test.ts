@@ -69,12 +69,13 @@ describe("game-logic", () => {
 
   describe("playTurn", () => {
     it("scores a full round and returns to the first player", () => {
-      const [roster1, player1] = playTurn(100, 0, getSampleRoster());
-      const [roster2, player2] = playTurn(200, player1, roster1);
-      const result = playTurn(300, player2, roster2);
-      expect(result).toMatchInlineSnapshot(`
-        Array [
-          Array [
+      const result1 = playTurn(100, 0, getSampleRoster());
+      const result2 = playTurn(200, result1.currentPlayer, result1.roster);
+      const result3 = playTurn(300, result2.currentPlayer, result2.roster);
+      expect(result3).toMatchInlineSnapshot(`
+        Object {
+          "currentPlayer": 0,
+          "roster": Array [
             Object {
               "name": "Doug",
               "scores": Array [
@@ -94,8 +95,7 @@ describe("game-logic", () => {
               ],
             },
           ],
-          0,
-        ]
+        }
       `);
     });
   });
