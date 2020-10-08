@@ -16,7 +16,7 @@
     "react-beautiful-dnd": "^13.0.0",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
-    "recoil": "^0.0.10",
+    "recoil": "^0.0.13",
     "typescript": "^3.9.7"
   },
   "scripts": {
