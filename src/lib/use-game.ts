@@ -42,7 +42,7 @@ export function useGame(): UseRosterResult {
       setRoster(reorderPlayer(currentIndex, destinationIndex, roster));
     },
     playCurrentTurn(score: number) {
-      const [nextRoster, nextPlayerIndex] = playTurn(
+      const { roster: nextRoster, currentPlayer: nextPlayerIndex } = playTurn(
         score,
         currentPlayerIndex,
         roster

@@ -1,5 +1,5 @@
 import { Roster } from "../types";
-import { reorderPlayer } from "./game-logic";
+import { reorderPlayer, playTurn } from "./game-logic";
 
 const getSampleRoster = () => [
   { name: "Doug", scores: [] },
@@ -63,6 +63,39 @@ describe("game-logic", () => {
           "Dave",
           "Aaron",
         ]
+      `);
+    });
+  });
+
+  describe("playTurn", () => {
+    it("scores a full round and returns to the first player", () => {
+      const result1 = playTurn(100, 0, getSampleRoster());
+      const result2 = playTurn(200, result1.currentPlayer, result1.roster);
+      const result3 = playTurn(300, result2.currentPlayer, result2.roster);
+      expect(result3).toMatchInlineSnapshot(`
+        Object {
+          "currentPlayer": 0,
+          "roster": Array [
+            Object {
+              "name": "Doug",
+              "scores": Array [
+                100,
+              ],
+            },
+            Object {
+              "name": "Dave",
+              "scores": Array [
+                200,
+              ],
+            },
+            Object {
+              "name": "Aaron",
+              "scores": Array [
+                300,
+              ],
+            },
+          ],
+        }
       `);
     });
   });

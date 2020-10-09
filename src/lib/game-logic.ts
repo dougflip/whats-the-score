@@ -3,6 +3,11 @@
  */
 import { Roster, Player } from "../types";
 
+interface GameState {
+  roster: Roster,
+  currentPlayer: number,
+}
+
 function replaceItemAtIndex<T>(arr: T[], index: number, newValue: T): T[] {
   return [...arr.slice(0, index), newValue, ...arr.slice(index + 1)];
 }
@@ -71,12 +76,15 @@ export function playTurn(
   score: number,
   playerIndex: number,
   roster: Roster
-): [Roster, number] {
+): GameState {
   const player = roster[playerIndex];
   const newRoster = replaceItemAtIndex(
     roster,
     playerIndex,
     scorePlayer(player, score)
   );
-  return [newRoster, getNextIndex(playerIndex, roster)];
+  return {
+    roster: newRoster,
+    currentPlayer: getNextIndex(playerIndex, roster),
+  };
 }
