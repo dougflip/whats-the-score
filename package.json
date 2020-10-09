@@ -23,6 +23,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:ci": "CI=1 yarn test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
